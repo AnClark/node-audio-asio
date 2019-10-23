@@ -535,7 +535,6 @@ void AsioStart(const FunctionCallbackInfo<Value>& args){
 	asioDriverInfo.callback.Reset(isolate, callback);
 	asioDriverInfo.isolate = isolate;
 	
-	ASIOControlPanel();
 	ASIOStart();
 }
 
@@ -575,6 +574,10 @@ void AsioList(const FunctionCallbackInfo<Value>& args){
 	args.GetReturnValue().Set(result_list);
 }
 
+void AsioControlPanel(const FunctionCallbackInfo<Value>& args){
+	ASIOControlPanel();
+}
+
 void init(Local<Object> exports){
 //we can limit access to list with the preprocessor directives*...may be good idea
 	NODE_SET_METHOD(exports, "list", AsioList);
@@ -582,5 +585,6 @@ void init(Local<Object> exports){
 	NODE_SET_METHOD(exports, "stop", AsioStop);
 	NODE_SET_METHOD(exports, "deInit", AsioDeInit);
 	NODE_SET_METHOD(exports, "start", AsioStart);
+	NODE_SET_METHOD(exports, "showPanel", AsioControlPanel);
 }
 NODE_MODULE(nodeAudioAsio, init);

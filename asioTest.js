@@ -21,6 +21,7 @@ fs.open('output.raw', 'w', (err, fd) => {
   	inputChannels: [0, 1], // first two channels
   	outputChannels: [0, 1] // first two channels
   });
+  nodeAsio.showPanel();
   nodeAsio.start({}, function(bufs){
     var locBuf = bufs[0]
     fs.write(out, locBuf, 0, locBuf.length, $ => $)
