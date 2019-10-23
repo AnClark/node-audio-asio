@@ -1,7 +1,9 @@
 # `node-audio-asio` for Node 6
+
 This package enables NodeJS programs to access audio devices that come with ASIO drivers. The ASIO drivers follow an API by Steinberg and are geared toward professional applications that need low-latency, low-overhead access on Windows hosts.
 
 ## Usage
+
 ```javascript
 const nodeAsio = require('node-audio-asio'),
       samplesPerBlock  = 256,
@@ -33,14 +35,20 @@ nodeAsio.deInit()
 ```
 
 ## Compiling
-Download the ASIO SDK and extract its contents over the repository, then compile and link globally using `npm link`.
+
+1. Download the ASIO SDK and extract its contents into the subdirectory **`asio`**
+2. Compile and link globally using `npm link`.
 
 If you know of a good way how to include the ASIO SDK (either in binary or source form) without breaking the EULA of the SDK, please submit a pull request.
 
+If node-gyp shows that `C:\Users\<USERNAME>\.node-gyp\<VERSION>\x64\node.lib` were not found, run `node-gyp rebuild`. node-gyp will download those needed libraries. Append `–proxy=protocol://proxy_address:proxy_port` to use proxy.
+
 ## Features and Bugs
+
 This is alpha-quality software and a proof of concept. However, with the help of the community we are looking forward to make this a battle-hardened library for professional audio development on NodeJS under Windows.
 
 ## About Distopik
+
 `node-audio-asio` is sponsored by Distopik.
 
 [Distopik](http://www.distopiksound.com) is a company with vested interest in professional audio programming, NodeJS and Javascript platforms in general. Check out our mix:analog product at http://www.mixanalog.com

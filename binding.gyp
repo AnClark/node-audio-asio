@@ -2,8 +2,8 @@
 	"targets": [
 		{
 			"target_name": "nodeAudioAsio",
-			"sources": [ "./host/pc/asiolist.cpp", "./host/asiodrivers.cpp", "./common/asio.cpp", "Source.cpp" ],
-			"include_dirs": [ "asio", "build", "common", "driver", "host", "host/pc", "<!(node -e \"require('nan')\")"],
+			"sources": [ "./asio/host/pc/asiolist.cpp", "./asio/host/asiodrivers.cpp", "./asio/common/asio.cpp", "Source.cpp" ],
+			"include_dirs": [ "asio", "asio/build", "asio/common", "asio/driver", "asio/host", "asio/host/pc", "<!(node -e \"require('nan')\")"],
 		
 		}
 	],
