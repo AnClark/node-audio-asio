@@ -36,9 +36,23 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
+# node-gyp built files
 build
+
+# ASIO SDK related files
 host
 driver
 asio
 common
+
+# Temporary files
 *.raw
+
+# Test files
+test*
+_test*
+a.*
+
+# Custom configs
+.vscode
+package-lock.json
