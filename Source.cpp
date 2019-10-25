@@ -327,6 +327,11 @@ static void WorkAsync(uv_work_t *req) {
 //worker thread
 //we don't do anythign here because this thread dosent have access to v8
 }
+
+/**
+ * WorkAsyncComplete()
+ * This is our actual workflow for buffering. Should include output / input.
+ */
 static void WorkAsyncComplete(uv_work_t *req, int status){
 	Isolate * isolate = Isolate::GetCurrent(); 
 	v8::HandleScope handleScope(isolate);
@@ -375,7 +380,9 @@ static void WorkAsyncComplete(uv_work_t *req, int status){
 	
 }
 ASIOTime *bufferSwitchTimeInfo(ASIOTime *timeInfo, long index, ASIOBool processNow)
-{	// the actual processing callback.
+{	//=== STEINBERG'S PART ================================================== 
+
+	// the actual processing callback.
 	// Beware that this is normally in a seperate thread, hence be sure that you take care
 	// about thread synchronization. This is omitted here for simplicity.
 	static long processedSamples = 0;
@@ -406,12 +413,19 @@ ASIOTime *bufferSwitchTimeInfo(ASIOTime *timeInfo, long index, ASIOBool processN
 	// buffer size in samples
 	long buffSize = asioDriverInfo.preferredSize;
 
+
+
+	//=== OUR OWN PART ======================================================
+
 	// processing for inputs send recorded data To js
 	Work * work = new Work();
 	work->request.data = work;
 	work->index = index;
 	//kicking of the worker thread
 	uv_queue_work(uv_default_loop(), &work->request, WorkAsync, WorkAsyncComplete);
+
+
+	//=== STEINBERG'S PART ================================================== 
 
 	// finally if the driver supports the ASIOOutputReady() optimization, do it here, all data are in place
 	if (asioDriverInfo.postOutput)
